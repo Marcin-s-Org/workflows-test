@@ -22,11 +22,17 @@ jobs:
       - run: pre-commit autoupdate
       - run: git status
 
-      - env:
-          GITHUB_TOKEN: ${{ secrets.TRIGGER_WORKFLOW_KEY }}
-        run: |
-          git checkout -b bump-dependencies
-          git add *
-          git commit -m "Bump dependencies"
-          git push origin bump-dependencies
-          gh pr create -t "Bump dependencies" -b "Weekly update of backend dependencies." -l ":robot: bot" -l "test deployment"
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v3
+        with:
+          branch: bump-dependencies
+          delete-branch: true
+          commit-message: Bump dependencies
+          title: 'Bump dependencies'
+          body: |
+            Weekly update of backend dependencies.
+          labels: |
+            :robot: bot
+            test deployment
+      
+      - run: gh workflow run run-tests.yml
