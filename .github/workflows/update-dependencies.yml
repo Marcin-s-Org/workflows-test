@@ -25,6 +25,7 @@ jobs:
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v3
         with:
+          token: {{ secrets.TRIGGER_WORKFLOW_KEY }}
           branch: bump-dependencies
           delete-branch: true
           commit-message: Bump dependencies
@@ -34,5 +35,3 @@ jobs:
           labels: |
             :robot: bot
             test deployment
-      
-      - run: gh workflow run run-tests.yml
