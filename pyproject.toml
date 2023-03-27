@@ -1,19 +1,19 @@
 [tool.poetry]
 name = "workflows-test"
-version = "0.1.1"
+version = "0.1.7"
 description = ""
-authors = ["Marcin Gębala <maarcin.gebala@gmail.com>"]
+authors = [ "Marcin Gębala <maarcin.gebala@gmail.com>" ]
 
-[tool.poetry.dependencies]
-python = "^3.9"
-ariadne = "^0.14.1"
+  [tool.poetry.dependencies]
+  python = "^3.9"
+  ariadne = "^0.14.1"
 
-[tool.poetry.dev-dependencies]
-black = "^22.1.0"
-pytest = "^7.1.0"
-mypy = "^0.940"
-isort = "^5.10.1"
+  [tool.poetry.dev-dependencies]
+  black = "^22.1.0"
+  pytest = "^7.1.0"
+  mypy = "^0.940"
+  isort = "^5.10.1"
 
 [build-system]
-requires = ["poetry-core>=1.0.0"]
+requires = [ "poetry-core>=1.0.0" ]
 build-backend = "poetry.core.masonry.api"
