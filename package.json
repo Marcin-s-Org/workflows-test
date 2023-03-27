@@ -12,7 +12,7 @@
   "author": "Marcin Gębala",
   "devDependencies": {
     "@release-it/bumper": "^4.0.0",
-    "release-it": "^15.6.0"
+    "release-it": "^15.9.3"
   },
   "scripts": {
     "release": "release-it"
