@@ -4,8 +4,14 @@ schema {
   subscription: Subscription
 }
 
-type Query {}
+type Query {
+  me: User
+}
 
 type Mutation {}
 
 type Subscription {}
+
+type User {
+  name: String
+}
