@@ -3,7 +3,9 @@
     "release": true,
     "draft": true,
     "releaseName": "${version}",
-    "assets": ["src/schema.graphql"]
+    "assets": ["src/schema.graphql"],
+    "web": true,
+    "autoGenerate": true
   },
   "npm": {
     "publish": false
