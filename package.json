@@ -1,0 +1,19 @@
+{
+  "name": "saleor",
+  "version": "0.0.1",
+  "engines": {
+    "node": ">=16 <17",
+    "npm": ">=7"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/maaarcingebala/workflows-test.git"
+  },
+  "author": "Marcin Gębala",
+  "devDependencies": {
+    "release-it": "^15.6.0"
+  },
+  "scripts": {
+    "release": "release-it"
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "github": {
+    "release": true,
+    "draft": true,
+    "releaseName": "${version}"
+  },
+  "npm": {
+    "publish": false
+  }
+}
