@@ -11,6 +11,7 @@
   },
   "author": "Marcin Gębala",
   "devDependencies": {
+    "@release-it/bumper": "^4.0.0",
     "release-it": "^15.6.0"
   },
   "scripts": {
