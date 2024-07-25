@@ -1,10 +1,11 @@
 {
   "github": {
-    "release": true,
-    "draft": true,
-    "releaseName": "${version}",
     "assets": ["src/schema.graphql"],
-    "autoGenerate": true
+    "autoGenerate": true,
+    "draft": true,
+    "push": false,
+    "release": true,
+    "releaseName": "${version}"
   },
   "npm": {
     "publish": false
@@ -20,8 +21,13 @@
     }
   },
   "hooks": {
-    "before:init": "echo Before initialization",
-    "after:bump": "echo After bump: ${version}"
+    "after:bump": [
+      "echo Will create branch: release-${version}",
+      "git checkout -B release-${version} --track"
+    ],
+    "after:release": [
+      "git push origin release-${version}"
+    ]
   }
 }
 
