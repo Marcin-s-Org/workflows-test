@@ -1,11 +1,11 @@
 {
   "github": {
-    "release": true,
-    "draft": true,
-    "releaseName": "${version}",
     "assets": ["src/schema.graphql"],
     "autoGenerate": true,
-    "push": false
+    "draft": true,
+    "push": false,
+    "release": true,
+    "releaseName": "${version}"
   },
   "npm": {
     "publish": false
