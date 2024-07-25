@@ -1,11 +1,11 @@
 {
+  "git": {
+    "commit": true,
+    "tag": false,
+    "push": false
+  },
   "github": {
-    "assets": ["src/schema.graphql"],
-    "autoGenerate": true,
-    "draft": true,
-    "push": false,
-    "release": true,
-    "releaseName": "${version}"
+    "release": false
   },
   "npm": {
     "publish": false
@@ -26,7 +26,8 @@
       "git checkout -B release-${version} --track"
     ],
     "after:release": [
-      "git push origin release-${version}"
+      "git push origin release-${version}",
+      "git checkout main"
     ]
   }
 }
