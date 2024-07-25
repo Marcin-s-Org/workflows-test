@@ -22,7 +22,7 @@
   "hooks": {
     "after:bump": [
       "echo Will create branch: bump-to-${version}",
-      "git checkout -b bump-to-${version}"
+      "git checkout -B --track bump-to-${version}"
     ]
   }
 }
