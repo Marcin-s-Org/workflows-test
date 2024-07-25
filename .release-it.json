@@ -4,7 +4,8 @@
     "draft": true,
     "releaseName": "${version}",
     "assets": ["src/schema.graphql"],
-    "autoGenerate": true
+    "autoGenerate": true,
+    "push": false
   },
   "npm": {
     "publish": false
@@ -21,8 +22,11 @@
   },
   "hooks": {
     "after:bump": [
-      "echo Will create branch: bump-to-${version}",
-      "git checkout -B bump-to-${version} --track"
+      "echo Will create branch: release-${version}",
+      "git checkout -B release-${version} --track"
+    ],
+    "after:release": [
+      "git push origin release-${version}"
     ]
   }
 }
