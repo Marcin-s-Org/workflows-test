@@ -20,8 +20,10 @@
     }
   },
   "hooks": {
-    "before:init": "echo Before initialization",
-    "after:bump": "echo After bump: ${version}"
+    "after:bump": [
+      "echo Will create branch: bump-to-${version}",
+      "git checkout -b bump-to-${version}"
+    ]
   }
 }
 
