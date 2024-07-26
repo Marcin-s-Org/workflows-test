@@ -27,7 +27,7 @@
     ],
     "after:release": [
       "git push origin release-${version}",
-      "git checkout main"
+      "gh pr create --base main --head release-${version} --title \"Release ${version}\" --body \"Release ${version}\"  --label release"
     ]
   }
 }
