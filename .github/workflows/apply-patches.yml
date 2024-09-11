@@ -27,8 +27,8 @@ jobs:
   #         fi
 
   apply-patches:
-    needs: check-version-branch
-    if: needs.check-version-branch.outputs.is_version_branch == 'true'
+    # needs: check-version-branch
+    # if: needs.check-version-branch.outputs.is_version_branch == 'true'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout PR branch
