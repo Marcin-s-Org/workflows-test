@@ -44,7 +44,7 @@ jobs:
       - name: Clone repo
         env:
           GH_TOKEN: ${{ steps.generate-token.outputs.token }}
-        run: gh repo clone git@github.com:maarcingebala/workflows-patches.git
+        run: gh repo clone git@github.com:Marcin-s-Org/workflows-test.git
 
       - name: Apply patches
         id: apply_patches
