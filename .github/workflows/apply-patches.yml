@@ -31,27 +31,33 @@ jobs:
     # if: needs.check-version-branch.outputs.is_version_branch == 'true'
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout PR branch
-        uses: actions/checkout@v2
-      
       - name: Generate a token
         id: generate-token
         uses: actions/create-github-app-token@v1
         with:
           app-id: ${{ vars.APP_ID }}
           private-key: ${{ secrets.APP_PRIVATE_KEY }}
+
+      - name: Checkout PR branch
+        uses: actions/checkout@v4
+        with:
+          path: workflows-test
+          # ref: add ref to checkout to target branch
       
       - name: Checkout patches
         id: checkout-patches
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
         with:
           repository: Marcin-s-Org/workflows-patches
           token: ${{ steps.generate-token.outputs.token }}
+          path: workflows-patches
+          # ref: add reg to checkout to target branch
 
       - name: Apply patches
         id: apply_patches
         run: |
-          git apply workflows-patches/patches/**.patch
+          cd workflow-test
+          git apply ../workflows-patches/patches/**.patch
         continue-on-error: true
 
       - name: Add comment to PR        
