@@ -40,11 +40,13 @@ jobs:
         with:
           app-id: ${{ vars.APP_ID }}
           private-key: ${{ secrets.APP_PRIVATE_KEY }}
-
-      - name: Clone repo
-        env:
-          GH_TOKEN: ${{ steps.generate-token.outputs.token }}
-        run: gh repo clone git@github.com:Marcin-s-Org/workflows-test.git
+      
+      - name: Checkout patches
+        id: checkout-patches
+        uses: actions/checkout@v2
+        with:
+          repository: Marcin-s-Org/workflows-patches
+          token: ${{ steps.generate-token.outputs.token }}
 
       - name: Apply patches
         id: apply_patches
