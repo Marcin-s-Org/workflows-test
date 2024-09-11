@@ -35,7 +35,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Clone private repo
-        run: gh repo clone maarcingebala/workflows-patches
+        run: gh repo clone git@github.com:maarcingebala/workflows-patches.git
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
