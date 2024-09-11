@@ -33,11 +33,18 @@ jobs:
     steps:
       - name: Checkout PR branch
         uses: actions/checkout@v2
+      
+      - name: Generate a token
+        id: generate-token
+        uses: actions/create-github-app-token@v1
+        with:
+          app-id: ${{ vars.APP_ID }}
+          private-key: ${{ secrets.APP_PRIVATE_KEY }}
 
-      - name: Clone private repo
-        run: gh repo clone git@github.com:maarcingebala/workflows-patches.git
+      - name: Clone repo
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ steps.generate-token.outputs.token }}
+        run: gh repo clone git@github.com:maarcingebala/workflows-patches.git
 
       - name: Apply patches
         id: apply_patches
