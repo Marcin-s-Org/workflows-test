@@ -53,11 +53,12 @@ jobs:
           path: workflows-patches
           # ref: add reg to checkout to target branch
 
+      - run: ls
       - name: Apply patches
         id: apply_patches
         run: |
-          ls
-          git apply workflows-patches/patches/**.patch
+          cd workflows-test
+          git apply ../workflows-patches/patches/**.patch
         continue-on-error: true
 
       - name: Add comment to PR
