@@ -56,21 +56,15 @@ jobs:
       - name: Apply patches
         id: apply_patches
         run: |
+          ls
           git apply workflows-patches/patches/**.patch
         continue-on-error: true
 
-      - name: Add comment to PR        
+      - name: Add comment to PR
         if: always()
-        uses: actions/github-script@v6
+        uses: peter-evans/create-or-update-comment@v1
         with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          script: |
-            const { context } = require('@actions/github');
-            const issue_number = context.payload.pull_request.number;
-            const outcome = '${{ steps.apply_patches.outcome }}';
-            const comment = outcome === 'success' ? 'Patches applied successfully' : 'Failed to apply patches';
-            await github.issues.createComment({
-              ...context.repo,
-              issue_number,
-              body: comment
-            });
+          token: ${{ steps.generate-token.outputs.token }}
+          issue-number: ${{ github.event.pull_request.number }}
+          body: |
+            ${{ steps.apply_patches.outcome == 'success' && 'Patches applied successfully' || 'Failed to apply patches' }}
