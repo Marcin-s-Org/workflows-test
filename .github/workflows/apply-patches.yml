@@ -35,7 +35,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Clone private repo
-        run: git clone git@github.com:maarcingebala/workflows-patches.git
+        run: git clone https://${{ secrets.GITHUB_TOKEN }}@github.com/maarcingebala/workflows-patches.git
 
       - name: Apply patches
         id: apply_patches
