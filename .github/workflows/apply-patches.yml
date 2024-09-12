@@ -60,12 +60,3 @@ jobs:
           cd workflows-test
           git apply ../workflows-patches/patches/**.patch
         continue-on-error: true
-
-      - name: Add comment to PR
-        if: always()
-        uses: peter-evans/create-or-update-comment@v1
-        with:
-          token: ${{ steps.generate-token.outputs.token }}
-          issue-number: ${{ github.event.pull_request.number }}
-          body: |
-            ${{ steps.apply_patches.outcome == 'success' && 'Patches applied successfully' || 'Failed to apply patches' }}
