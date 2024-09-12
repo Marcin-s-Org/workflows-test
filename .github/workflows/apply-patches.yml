@@ -2,7 +2,7 @@ name: Test Patches
 
 on:
   pull_request:
-    types: [opened, synchronize]
+    types: [labeled, opened, synchronize]
 
 jobs:
   apply-patches:
