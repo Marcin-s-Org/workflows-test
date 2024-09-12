@@ -38,24 +38,26 @@ jobs:
         with:
           app-id: ${{ vars.APP_ID }}
           private-key: ${{ secrets.APP_PRIVATE_KEY }}
+          repositories: workflows-patches
+
+      - name: Checkout patches
+        id: checkout-patches
+        uses: actions/checkout@v4
+        with:
+          repository: Marcin-s-Org/workflows-patches
+          token: ${{ steps.generate-token.outputs.token }}
+          path: workflows-patches
+          persist-credentials: false
+          # ref: add reg to checkout to target branch
 
       - name: Checkout PR branch
         uses: actions/checkout@v4
         with:
           path: workflows-test
           # ref: add ref to checkout to target branch
-      
-      - name: Checkout patches
-        id: checkout-patches
-        uses: actions/checkout@v4
-        with:
-          repository: Marcin-s-Org/workflows-patches
-          token: ${{ steps.generate-token.outputs.token }}  # token is not available in this step? needs to be stored?
-          path: workflows-patches
-          # ref: add reg to checkout to target branch
 
       - run: ls
-      - name: Apply patches test
+      - name: Apply patches
         id: apply_patches
         run: |
           cd workflows-test
