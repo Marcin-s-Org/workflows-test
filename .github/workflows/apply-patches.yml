@@ -16,14 +16,6 @@ jobs:
           private-key: ${{ secrets.APP_PRIVATE_KEY }}
           repositories: workflows-patches
 
-      - name: Check skip label
-        if: ${{ contains(github.event.pull_request.labels.*.name, 'skip check patches') }}
-        run: |
-          gh run cancel ${{ github.run_id }}
-          gh run watch ${{ github.run_id }}
-        env:
-          GITHUB_TOKEN: ${{ steps.generate-token.outputs.token }}
-
       - name: Checkout PR branch
         uses: actions/checkout@v4
         with:
@@ -41,6 +33,7 @@ jobs:
           ref: ${{ github.base_ref }}
 
       - name: Apply patches
+        if: ${{ !contains(github.event.pull_request.labels.*.name, 'skip check patches') }}
         id: apply_patches
         run: |
           cd workflows-test
