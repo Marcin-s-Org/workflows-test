@@ -59,4 +59,4 @@ jobs:
         run: |
           cd workflows-test
           git apply ../workflows-patches/patches/**.patch
-        continue-on-error: true
+
