@@ -31,6 +31,7 @@ jobs:
     # if: needs.check-version-branch.outputs.is_version_branch == 'true'
     runs-on: ubuntu-latest
     steps:
+      # TODO: Adjust generating token with how other actions do it
       - name: Generate a token
         id: generate-token
         uses: actions/create-github-app-token@v1
@@ -54,7 +55,7 @@ jobs:
           # ref: add reg to checkout to target branch
 
       - run: ls
-      - name: Apply patches
+      - name: Apply patches test
         id: apply_patches
         run: |
           cd workflows-test
