@@ -5,33 +5,13 @@ on:
     types: [opened, synchronize]
 
 jobs:
-  # check-version-branch:
-  #   runs-on: ubuntu-latest
-  #   outputs:
-  #     is_version_branch: ${{ steps.check_version_branch.outputs.is_version_branch }}
-  #   steps:
-  #     - name: Checkout PR branch
-  #       uses: actions/checkout@v2
-
-  #     - name: Get target branch
-  #       id: get_target_branch
-  #       run: echo "::set-output name=target_branch::$(jq -r .pull_request.base.ref $GITHUB_EVENT_PATH)"
-
-  #     - name: Check if target branch is a version branch
-  #       id: check_version_branch
-  #       run: |
-  #         if [[ "${{ steps.get_target_branch.outputs.target_branch }}" =~ ^v[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
-  #           echo "::set-output name=is_version_branch::true"
-  #         else
-  #           echo "::set-output name=is_version_branch::false"
-  #         fi
-
   apply-patches:
-    # needs: check-version-branch
-    # if: needs.check-version-branch.outputs.is_version_branch == 'true'
     runs-on: ubuntu-latest
     steps:
-      # TODO: Adjust generating token with how other actions do it
+      - name: Check skip label
+        if: ${{ contains(github.event.pull_request.labels.*.name, 'skip check patches') }}
+        run: exit 1
+
       - name: Generate a token
         id: generate-token
         uses: actions/create-github-app-token@v1
@@ -44,7 +24,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           path: workflows-test
-          # ref: add ref to checkout to target branch
+          ref: ${{ github.head_ref }}
       
       - name: Checkout patches
         id: checkout-patches
@@ -54,9 +34,8 @@ jobs:
           token: ${{ steps.generate-token.outputs.token }}
           path: workflows-patches
           persist-credentials: false
-          # ref: add reg to checkout to target branch
+          ref: ${{ github.base_ref }}
 
-      - run: ls
       - name: Apply patches
         id: apply_patches
         run: |
