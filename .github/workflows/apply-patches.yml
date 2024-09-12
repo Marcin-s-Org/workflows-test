@@ -30,7 +30,7 @@ jobs:
           token: ${{ steps.generate-token.outputs.token }}
           path: workflows-patches
           persist-credentials: false
-          ref: ${{ github.event.pull_request.base.ref }}
+          ref: refs/heads/${{ github.base_ref }}  # try to checkout to version branch in patches repo
 
       - name: Apply patches
         if: ${{ !contains(github.event.pull_request.labels.*.name, 'skip check patches') }}
