@@ -10,7 +10,7 @@ jobs:
     steps:
       - name: Check skip label
         if: ${{ contains(github.event.pull_request.labels.*.name, 'skip check patches') }}
-        run: exit 1
+        run: exit 0
 
       - name: Generate a token
         id: generate-token
