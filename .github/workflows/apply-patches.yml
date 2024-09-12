@@ -40,6 +40,12 @@ jobs:
           private-key: ${{ secrets.APP_PRIVATE_KEY }}
           repositories: workflows-patches
 
+      - name: Checkout PR branch
+        uses: actions/checkout@v4
+        with:
+          path: workflows-test
+          # ref: add ref to checkout to target branch
+      
       - name: Checkout patches
         id: checkout-patches
         uses: actions/checkout@v4
@@ -49,12 +55,6 @@ jobs:
           path: workflows-patches
           persist-credentials: false
           # ref: add reg to checkout to target branch
-
-      - name: Checkout PR branch
-        uses: actions/checkout@v4
-        with:
-          path: workflows-test
-          # ref: add ref to checkout to target branch
 
       - run: ls
       - name: Apply patches
