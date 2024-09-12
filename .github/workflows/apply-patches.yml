@@ -8,10 +8,6 @@ jobs:
   apply-patches:
     runs-on: ubuntu-latest
     steps:
-      - name: Check skip label
-        if: ${{ contains(github.event.pull_request.labels.*.name, 'skip check patches') }}
-        run: exit 0
-
       - name: Generate a token
         id: generate-token
         uses: actions/create-github-app-token@v1
@@ -19,6 +15,14 @@ jobs:
           app-id: ${{ vars.APP_ID }}
           private-key: ${{ secrets.APP_PRIVATE_KEY }}
           repositories: workflows-patches
+
+      - name: Check skip label
+        if: ${{ contains(github.event.pull_request.labels.*.name, 'skip check patches') }}
+        run: |
+          gh run cancel ${{ github.run_id }}
+          gh run watch ${{ github.run_id }}
+        env:
+          GITHUB_TOKEN: ${{ steps.generate-token.outputs.token }}
 
       - name: Checkout PR branch
         uses: actions/checkout@v4
