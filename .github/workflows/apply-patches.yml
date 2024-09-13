@@ -43,4 +43,4 @@ jobs:
         id: apply_patches
         run: |
           cd workflows-test
-          git apply ../workflows-patches/patches/**.patch
+          git apply ../workflows-patches/patches/**.patch > /dev/null 2>&1
