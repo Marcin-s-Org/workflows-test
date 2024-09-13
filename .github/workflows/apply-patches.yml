@@ -2,7 +2,7 @@
 # E.g. if a PR targets a version branch `3.20`, the action would checkout to `3.20` branch in the patches repo and try to apply patches from that branch.
 # If patches apply, the action succeeds, otherwise it returns an error, and indicates that patches need to be adjusted.
 # - Action runs on all branches
-# - Action can be skipped with label: `skip check patches`
+# - Action runs only when label is applied: `check patches` (will be changed to all PRs when workflow is more tested).
 
 name: Test Patches
 
@@ -13,6 +13,7 @@ on:
 jobs:
   apply-patches:
     runs-on: ubuntu-latest
+    if: ${{ contains(github.event.pull_request.labels.*.name, 'check patches') }}
     steps:
       - name: Generate a token
         id: generate-token
@@ -39,7 +40,6 @@ jobs:
           ref: ${{ github.base_ref }}
 
       - name: Apply patches
-        if: ${{ !contains(github.event.pull_request.labels.*.name, 'skip check patches') }}
         id: apply_patches
         run: |
           cd workflows-test
