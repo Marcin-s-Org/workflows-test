@@ -1,3 +1,9 @@
+# The action fetches code from the PR's source branch, takes the target branch, and tries to fetch and apply patches using PR's target branch.
+# E.g. if a PR targets a version branch `3.20`, the action would checkout to `3.20` branch in the patches repo and try to apply patches from that branch.
+# If patches apply, the action succeeds, otherwise it returns an error, and indicates that patches need to be adjusted.
+# - Action runs on all branches
+# - Action can be skipped with label: `skip check patches`
+
 name: Test Patches
 
 on:
@@ -38,4 +44,3 @@ jobs:
         run: |
           cd workflows-test
           git apply ../workflows-patches/patches/**.patch
-
